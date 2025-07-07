@@ -1,0 +1,5 @@
+server/
+api/
+*.md
+.replit
+replit.nix
