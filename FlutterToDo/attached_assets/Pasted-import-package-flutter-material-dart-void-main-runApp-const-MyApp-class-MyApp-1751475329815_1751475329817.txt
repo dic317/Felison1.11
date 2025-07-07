@@ -1,0 +1,129 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Felison App',
+      theme: ThemeData(
+        // Основная цветовая схема, вдохновленная премиум финтех
+        primarySwatch: Colors.blueGrey,
+        brightness: Brightness.dark, // Темная тема для премиум вида
+        scaffoldBackgroundColor: const Color(0xFF1A1A2E), // Очень темный фон
+        cardColor: const Color(0xFF282845), // Цвет карточек/контейнеров
+        hintColor: const Color(0xFF6B7280), // Цвет вспомогательного текста
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+              color: Colors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.5),
+          headlineMedium: TextStyle(
+              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+          bodyLarge: TextStyle(color: Colors.white70, fontSize: 16),
+          bodyMedium: TextStyle(color: Colors.white60, fontSize: 14),
+          labelLarge: TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+        ),
+        // Стиль для кнопок, чтобы они выглядели "скошенными" и премиальными
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF5A4FCF), // Акцентный цвет для кнопок
+            foregroundColor: Colors.white,
+            shape: BeveledRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0), // Скругление углов
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            textStyle: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.8,
+            ),
+          ),
+        ),
+      ),
+      home: const MainMenuScreen(),
+    );
+  }
+}
+
+class MainMenuScreen extends StatelessWidget {
+  const MainMenuScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent, // Прозрачный AppBar
+        elevation: 0, // Без тени
+        centerTitle: true,
+        title: Text(
+          'FELISON',
+          style: Theme.of(context).textTheme.displayLarge,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            // Прямоугольник для новостей
+            Container(
+              height: 180, // Высота для блока новостей
+              width: double.infinity, // Ширина на всю доступную ширину
+              margin: const EdgeInsets.only(bottom: 30.0),
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor, // Цвет контейнера
+                borderRadius: BorderRadius.circular(20.0), // Скругленные углы
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 2,
+                    blurRadius: 10,
+                    offset: const Offset(0, 5), // Тень для глубины
+                  ),
+                ],
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                'Здесь будут новости',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
+            // Кнопки меню
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2, // 2 кнопки в ряд
+                crossAxisSpacing: 20.0, // Расстояние между колонками
+                mainAxisSpacing: 20.0, // Расстояние между рядами
+                childAspectRatio: 1.0, // Соотношение сторон для квадратов
+                physics:
+                    const NeverScrollableScrollPhysics(), // Отключаем прокрутку для сетки
+                children: [
+                  _buildMenuButton(context, 'Календарь'),
+                  _buildMenuButton(context, 'Портал'),
+                  _buildMenuButton(context, 'Мои финансы'),
+                  _buildMenuButton(context, 'Калькулятор'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMenuButton(BuildContext context, String title) {
+    return ElevatedButton(
+      onPressed: () {
+        // Пока без функционала, просто пустая функция
+      },
+      child: Text(title),
+    );
+  }
+}
