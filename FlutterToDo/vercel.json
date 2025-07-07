@@ -20,3 +20,7 @@
     }
   ]
 }
+{
+  "buildCommand": "npx vite build",
+  "outputDirectory": "dist/public"
+}
