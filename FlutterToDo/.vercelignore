@@ -3,3 +3,4 @@ api/
 *.md
 .replit
 replit.nix
+build.sh
