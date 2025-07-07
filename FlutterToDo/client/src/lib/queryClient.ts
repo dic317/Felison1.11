@@ -12,7 +12,10 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const res = await fetch(url, {
+  // Используем относительные пути для API
+  const apiUrl = url.startsWith('/api/') ? url : url;
+  
+  const res = await fetch(apiUrl, {
     method,
     headers: data ? { "Content-Type": "application/json" } : {},
     body: data ? JSON.stringify(data) : undefined,
@@ -55,3 +58,4 @@ export const queryClient = new QueryClient({
     },
   },
 });
+
