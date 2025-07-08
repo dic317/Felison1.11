@@ -1,7 +1,6 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/public",
-  "installCommand": "npm install",
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
   "functions": {
     "api/index.ts": {
       "runtime": "@vercel/node"
