@@ -1,6 +1,5 @@
-server/
-*.md
+node_modules
+.cache
+*.log
+.env*
 .replit
-replit.nix
-build.sh
-FlutterToDo/
