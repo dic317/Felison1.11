@@ -1,13 +1,17 @@
-import express from "express";
-import { registerRoutes } from "../server/routes";
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-const app = express();
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-// Настройка для Vercel
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
 
-// Регистрация маршрутов
-registerRoutes(app);
-
-export default app;
+  res.status(200).json({ 
+    message: 'API работает через localStorage в браузере',
+    timestamp: new Date().toISOString()
+  });
+}
