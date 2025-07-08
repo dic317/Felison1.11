@@ -8,13 +8,12 @@ async function throwIfResNotOk(res: Response) {
   }
 }
 
-// Симуляция API запросов через localStorage для production
 async function simulateApiRequest(
   method: string,
   url: string,
   data?: unknown
 ): Promise<Response> {
-  await new Promise(resolve => setTimeout(resolve, 100)); // Имитация задержки
+  await new Promise(resolve => setTimeout(resolve, 100));
 
   try {
     if (url === '/api/transactions') {
@@ -73,13 +72,11 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  // ВСЕГДА используем localStorage для любых API запросов
   if (url.startsWith('/api/')) {
     console.log('🟢 USING localStorage API for:', method, url);
     return simulateApiRequest(method, url, data);
   }
 
-  // Для non-API запросов используем обычный fetch
   try {
     const res = await fetch(url, {
       method,
@@ -101,9 +98,9 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey[0] as string, {
-      credentials: "include",
-    });
+    const url = queryKey[0] as string;
+    
+    const res = await apiRequest('GET', url);
 
     if (unauthorizedBehavior === "returnNull" && res.status === 401) {
       return null;
